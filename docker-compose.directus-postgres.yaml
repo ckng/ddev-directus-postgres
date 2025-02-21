@@ -1,0 +1,59 @@
+#ddev-generated
+services:
+  directus:
+    container_name: ddev-${DDEV_SITENAME}-directus
+    build:
+      context: .
+      dockerfile: ./directus-postgres.Dockerfile
+      args:
+        uid: $DDEV_UID
+        gid: $DDEV_GID
+    working_dir: "/directus"
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+    expose:
+      - "8055"
+    environment:
+      - KEY=ddev-key
+      - SECRET=ddev-secret
+
+      - DB_CLIENT=pg
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=db
+      - DB_USER=db
+      - DB_PASSWORD=db
+
+      - CACHE_ENABLED=true
+      - CACHE_AUTO_PURGE=true
+      - CACHE_STORE=redis
+      - REDIS=redis://redis:6379
+
+      - ADMIN_EMAIL=admin@example.com
+      - ADMIN_PASSWORD=d1r3ctu5
+
+      - EXTENSIONS_AUTO_RELOAD=true
+      - WEBSOCKETS_ENABLED=true
+
+      # DDev additional services.
+      - VIRTUAL_HOST=${DDEV_SITENAME}.${DDEV_TLD}
+      - HTTP_EXPOSE=8054:8055
+      - HTTPS_EXPOSE=8055:8055
+
+      - PUBLIC_URL=https://${DDEV_SITENAME}.${DDEV_TLD}
+      - CORS_ENABLED=true
+      - CORS_ORIGIN=https://${DDEV_SITENAME}.${DDEV_TLD}
+      - REFRESH_TOKEN_COOKIE_DOMAIN=${DDEV_SITENAME}.${DDEV_TLD}
+    volumes:
+      - ../directus/uploads:/directus/uploads:rw
+      - ../directus/extensions:/directus/extensions:rw
+      - ../directus/templates:/directus/templates:rw
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://directus:8055/server/health"]
+      interval: 30s
+      retries: 3
+      timeout: 2s
+    depends_on:
+      - db
+      - redis
