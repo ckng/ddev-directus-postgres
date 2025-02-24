@@ -48,6 +48,8 @@ services:
       - CORS_CREDENTIALS=true
       - CORS_ORIGIN=https://${DDEV_SITENAME}.${DDEV_TLD}
 
+      ## Preview frame support.
+      # - CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC=array:'self',https://${DDEV_SITENAME}.${DDEV_TLD},https://${DDEV_SITENAME}.${DDEV_TLD}:3000
     volumes:
       - ../directus/uploads:/directus/uploads
       - ../directus/extensions/node_modules:/directus/extensions
