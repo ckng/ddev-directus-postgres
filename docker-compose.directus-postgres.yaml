@@ -13,6 +13,7 @@ services:
       com.ddev.site-name: ${DDEV_SITENAME}
       com.ddev.approot: $DDEV_APPROOT
     expose:
+      # Directus Data Studio.
       - "8055"
     environment:
       - KEY=ddev-key
@@ -42,13 +43,15 @@ services:
       - HTTPS_EXPOSE=8055:8055
 
       - PUBLIC_URL=https://${DDEV_SITENAME}.${DDEV_TLD}
-      - CORS_ENABLED=true
-      - CORS_ORIGIN=https://${DDEV_SITENAME}.${DDEV_TLD}
       - REFRESH_TOKEN_COOKIE_DOMAIN=${DDEV_SITENAME}.${DDEV_TLD}
+      - CORS_ENABLED=true
+      - CORS_CREDENTIALS=true
+      - CORS_ORIGIN=https://${DDEV_SITENAME}.${DDEV_TLD}
+
     volumes:
-      - ../directus/uploads:/directus/uploads:rw
-      - ../directus/extensions:/directus/extensions:rw
-      - ../directus/templates:/directus/templates:rw
+      - ../directus/uploads:/directus/uploads
+      - ../directus/extensions/node_modules:/directus/extensions
+      - ../directus/templates:/directus/templates
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://directus:8055/server/health"]
       interval: 30s

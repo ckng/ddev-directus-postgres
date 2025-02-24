@@ -35,7 +35,7 @@ This Directus recipe for [DDEV](https://ddev.readthedocs.io) installs a [`.ddev/
 * To reach the Directus admin interface, open [https://your-project.ddev.site:8055/admin](https://your-project.ddev.site:8055/admin) in your browser. (You need to replace `your-project` with your actual project name.)
 * Credentials are `admin@ddev.site` and `d1r3ctu5`.
 
-  Your can customize the default credentials in the [docker-compose.directus-postgres.yaml](docker-compose.directus-postgres.yaml) by editing the `ADMIN_EMAIL` and `ADMIN_PASSWORD` variables.
+  Your can customize the default credentials in the [docker-compose.directus-postgres.yaml](docker-compose.directus-postgres.yaml) by editing the `ADMIN_EMAIL` and `ADMIN_PASSWORD` variables. Or you can remove ADMIN_PASSWORD for it to auto generate.
 
 ## How to use this project in a fresh project
 
@@ -51,10 +51,32 @@ ddev config --project-type php --database postgres:13 --nodejs-version 22
 ddev add-on get ckng/ddev-directus-postgres #or ddev get ckng/ddev-directus-postgres for older versions of DDEV
 # 5. Start the project
 ddev start
-# Directus should now be started on port 8055 of your project
+# Directus should now be started on port 8055 (HTTPS) and port 8054 (HTTP) of your project
 ```
 
-Example url : [https://your-project.ddev.site:8055](https://your-project.ddev.site:8055)
+Example url :
+[https://your-project.ddev.site:8055](https://your-project.ddev.site:8055)
+[http://your-project.ddev.site:8054](http://your-project.ddev.site:8054)
+
+## Adding Directus extensions
+To add Directus extension locally.
+
+```bash
+# 1. Make sure in the extensions folder.
+cd your-project/directus/extensions
+# 2. Add an extenstion, e.g.
+npm require directus-extension-editorjs
+# 3. Reload Directus Data Studio app in the browser.
+```
+
+## Adding DDev CA certs.
+For nodejs to accept DDev mkcert certificates automatically, set the NODE_EXTRA_CA_CERTS per https://github.com/FiloSottile/mkcert#using-the-root-with-nodejs:
+
+```bash
+export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
+```
+
+Recommend to add to your shell environment.
 
 ## Other useful add-ons
 * **Mailpit**, built-in mail catcher.

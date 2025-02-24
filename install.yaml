@@ -18,10 +18,23 @@ dependencies:
 post_install_actions:
   - |
     #ddev-nodisplay
-    mkdir -p directus/extensions
+    mkdir -p directus/extensions/node_modules
     mkdir -p directus/templates
     mkdir -p directus/uploads
-    printf "\ndirectus/\n" >> .gitignore
+    cat <<EOF > directus/extensions/package.json
+    {
+      "name": "directus-extensions",
+      "dependencies": {
+      }
+    }
+    EOF
+    cat <<EOF >> .gitignore
+    # Directus
+    !directus/extensions/node_modules
+    directus/extensions/package-lock.json
+    directus/extensions/yarn.lock
+    directus/extensions/pnpm-lock.yaml
+    EOF
 
 # Shell actions that can be done during removal of the add-on.
 removal_actions:
