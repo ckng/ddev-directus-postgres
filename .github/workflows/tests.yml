@@ -41,6 +41,10 @@ jobs:
           addon_repository: ${{ env.GITHUB_REPOSITORY }}
           addon_ref: ${{ env.GITHUB_REF }}
 
+      - name: Setup tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
+
       - name: Wait for Directus service to be healthy
         run: |
           for i in {1..12}; do
@@ -59,19 +63,19 @@ jobs:
           done
 
       - name: Fetch Directus service logs
-        if: failure()
+        if: ${{ failure() }}
         run: |
           echo "Fetching logs for DDev Directus service..."
           ddev logs -s directus
 
       - name: Fetch Directus service logs
-        if: failure()
+        if: ${{ failure() }}
         run: |
           echo "Fetching logs for Directus service..."
           docker logs $(docker-compose ps -q directus)
 
       - name: Fetch Directus service health details
-        if: failure()
+        if: ${{ failure() }}
         run: |
           echo "Fetching health details for Directus service..."
           docker inspect --format "{{ json .State.Health }}" $(docker-compose ps -q directus) | jq
