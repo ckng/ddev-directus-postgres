@@ -1,7 +1,7 @@
 [![tests](https://github.com/ckng/ddev-directus-postgres/actions/workflows/tests.yml/badge.svg)](https://github.com/ckng/ddev-directus-postgres/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2025.svg)
 
 ## What is this?
-s
+
 This repository allows you to quickly install Directus with PostgreSQL (and Redis) into a [DDEV](https://ddev.readthedocs.io) project using `ddev get ckng/ddev-directus-postgres`.
 
 If you're looking for the SQLite version like Directus Self-Hosted version, check out [ddev-directus](https://github.com/MelaineGerard/ddev-directus).
