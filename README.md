@@ -1,4 +1,4 @@
-[![tests](https://github.com/ckng/ddev-directus-postgres/actions/workflows/tests.yml/badge.svg)](https://github.com/ckng/ddev-directus-postgres/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2025.svg)
+[![Version](https://img.shields.io/github/v/release/ckng/ddev-directus-postgres)](https://github.com/ckng/ddev-directus-postgres/releases) ![project is maintained](https://img.shields.io/maintenance/yes/2025.svg) [![tests](https://github.com/ckng/ddev-directus-postgres/actions/workflows/tests.yml/badge.svg)](https://github.com/ckng/ddev-directus-postgres/actions/workflows/tests.yml)
 
 ## What is this?
 
@@ -15,13 +15,13 @@ If you're looking for the SQLite version like Directus Self-Hosted version, chec
 For DDEV v1.23.5 or above run
 
 ```sh
-ddev add-on get ckng/ddev-directus-postgres && ddev restart
+ddev add-on get ddev/ddev-redis && ddev add-on get ckng/ddev-directus-postgres && ddev restart
 ```
 
 For earlier versions of DDEV run
 
 ```sh
-ddev get ckng/ddev-directus-postgres && ddev restart
+ddev get ddev/ddev-redis && ddev get ckng/ddev-directus-postgres && ddev restart
 ```
 
 ## Explanation
