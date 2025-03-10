@@ -55,7 +55,7 @@ services:
       - ../directus/extensions/node_modules:/directus/extensions
       - ../directus/templates:/directus/templates
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://directus:8055/server/health"]
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:8055/server/health"]
       interval: 30s
       retries: 3
       timeout: 2s
