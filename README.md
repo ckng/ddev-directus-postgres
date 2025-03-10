@@ -40,18 +40,20 @@ This Directus recipe for [DDEV](https://ddev.readthedocs.io) installs a [`.ddev/
 ## How to use this project in a fresh project
 
 ```bash
-# 1. Create an empty project
+# 1. Create an empty project.
 mkdir your-project
 cd your-project
-# 2. Create a simple Hello, World in this folder
+# 2. Create a simple Hello, World in this folder.
 echo "<?php echo 'Hello, World!'; ?>" > index.php
-# 3. Init ddev in the project
+# 3. Init ddev in the project.
 ddev config --project-type php --database postgres:13 --nodejs-version 22
-# 4. Add Directus in the project
-ddev add-on get ckng/ddev-directus-postgres #or ddev get ckng/ddev-directus-postgres for older versions of DDEV
-# 5. Start the project
+# 4. Add Redis dependency in the project.
+ddev add-on get ddev/ddev-redis
+# 5. Add Directus in the project.
+ddev add-on get ckng/ddev-directus-postgres # or ddev get ckng/ddev-directus-postgres for older versions of DDEV
+# 6. Start the project.
 ddev start
-# Directus should now be started on port 8055 (HTTPS) and port 8054 (HTTP) of your project
+# Directus should now be started on port 8055 (HTTPS) and port 8054 (HTTP) of your project.
 ```
 
 Example url :

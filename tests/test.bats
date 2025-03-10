@@ -27,6 +27,9 @@ teardown() {
 @test "install from directory" {
   set -eu -o pipefail
   cd ${TESTDIR}
+  echo "# dependency" >&3
+  echo "# ddev add-on get ddev/ddev-redis with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev add-on get ddev/ddev-redis
   echo "# ddev add-on get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
   ddev add-on get ${DIR}
   ddev restart
@@ -37,8 +40,11 @@ teardown() {
 @test "install from release" {
   set -eu -o pipefail
   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  echo "# ddev add-on get ddev/directus-postgres with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
-  ddev add-on get ddev/directus-postgres
+  echo "# dependency" >&3
+  echo "# ddev add-on get ddev/ddev-redis with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev add-on get ddev/ddev-redis
+  echo "# ddev add-on get ckng/ddev-directus-postgres with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev add-on get ckng/ddev-directus-postgres
   ddev restart >/dev/null
   health_checks
 }

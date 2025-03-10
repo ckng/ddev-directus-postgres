@@ -18,17 +18,17 @@ dependencies:
 post_install_actions:
   - |
     #ddev-nodisplay
-    mkdir -p directus/extensions/node_modules
-    mkdir -p directus/templates
-    mkdir -p directus/uploads
-    cat <<EOF > directus/extensions/package.json
+    mkdir -p ../directus/extensions/node_modules
+    mkdir -p ../directus/templates
+    mkdir -p ../directus/uploads
+    cat <<EOF > ../directus/extensions/package.json
     {
       "name": "directus-extensions",
       "dependencies": {
       }
     }
     EOF
-    cat <<EOF >> .gitignore
+    cat <<EOF >> ../.gitignore
     # Directus
     !directus/extensions/node_modules
     directus/extensions/package-lock.json
