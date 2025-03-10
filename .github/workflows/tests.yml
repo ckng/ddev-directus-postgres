@@ -40,3 +40,38 @@ jobs:
           debug_enabled: ${{ github.event.inputs.debug_enabled }}
           addon_repository: ${{ env.GITHUB_REPOSITORY }}
           addon_ref: ${{ env.GITHUB_REF }}
+
+      - name: Wait for Directus service to be healthy
+        run: |
+          for i in {1..12}; do
+            STATUS=$(docker inspect --format='{{.State.Health.Status}}' $(docker-compose ps -q directus))
+            echo "Directus service health status: $STATUS"
+            if [ "$STATUS" == "healthy" ]; then
+              echo "Directus service is healthy."
+              break
+            elif [ "$STATUS" == "unhealthy" ]; then
+              echo "Directus service is unhealthy. Exiting."
+              exit 1
+            else
+              echo "Directus service is still starting. Waiting..."
+              sleep 10
+            fi
+          done
+
+      - name: Fetch Directus service logs
+        if: failure()
+        run: |
+          echo "Fetching logs for DDev Directus service..."
+          ddev logs -s directus
+
+      - name: Fetch Directus service logs
+        if: failure()
+        run: |
+          echo "Fetching logs for Directus service..."
+          docker logs $(docker-compose ps -q directus)
+
+      - name: Fetch Directus service health details
+        if: failure()
+        run: |
+          echo "Fetching health details for Directus service..."
+          docker inspect --format "{{ json .State.Health }}" $(docker-compose ps -q directus) | jq
