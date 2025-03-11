@@ -7,7 +7,7 @@ pre_install_actions:
 # if it hasn't been modified by the user.
 project_files:
   - docker-compose.directus-postgres.yaml
-  - directus-postgres.Dockerfile
+  - directus/directus-postgres.Dockerfile
 
 # List of add-on names that this add-on depends on
 dependencies:

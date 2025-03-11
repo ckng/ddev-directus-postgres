@@ -4,7 +4,7 @@ services:
     container_name: ddev-${DDEV_SITENAME}-directus
     build:
       context: .
-      dockerfile: ./directus-postgres.Dockerfile
+      dockerfile: ./directus/directus-postgres.Dockerfile
       args:
         uid: $DDEV_UID
         gid: $DDEV_GID
