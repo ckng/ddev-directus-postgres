@@ -38,3 +38,6 @@ post_install_actions:
 
 # Shell actions that can be done during removal of the add-on.
 removal_actions:
+  - |
+    # Remove the .ddev/directus directory, NOT the ../directus directory.
+    rm -r directus
