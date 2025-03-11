@@ -28,12 +28,12 @@ post_install_actions:
       }
     }
     EOF
-    cat <<EOF >> ../.gitignore
+    cat <<EOF >> ../directus/extensions/.gitignore
     # Directus
-    !directus/extensions/node_modules
-    directus/extensions/package-lock.json
-    directus/extensions/yarn.lock
-    directus/extensions/pnpm-lock.yaml
+    !node_modules
+    package-lock.json
+    yarn.lock
+    pnpm-lock.yaml
     EOF
 
 # Shell actions that can be done during removal of the add-on.
