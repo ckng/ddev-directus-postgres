@@ -7,7 +7,7 @@ setup() {
   export DDEV_NONINTERACTIVE=true
   ddev delete -Oy ${PROJNAME} >/dev/null 2>&1 || true
   cd "${TESTDIR}"
-  ddev config --project-name=${PROJNAME}
+  ddev config --project-name=${PROJNAME} --project-type php --database postgres:13 --nodejs-version 22
   ddev start -y >/dev/null
 }
 
